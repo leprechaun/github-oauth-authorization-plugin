@@ -33,10 +33,13 @@ import java.net.InetSocketAddress;
 
 import static cd.go.authorization.github.GitHubPlugin.LOG;
 import static java.text.MessageFormat.format;
+import com.thoughtworks.go.plugin.api.logging.Logger;
 
 public class FetchAccessTokenRequestExecutor implements RequestExecutor {
     private final FetchAccessTokenRequest request;
     private final OkHttpClient httpClient;
+
+    public static final Logger LOG = Logger.getLoggerFor(FetchAccessTokenRequestExecutor.class);
 
     public FetchAccessTokenRequestExecutor(FetchAccessTokenRequest request) {
         this(request, new OkHttpClient.Builder());
@@ -45,6 +48,7 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
     FetchAccessTokenRequestExecutor(FetchAccessTokenRequest request, OkHttpClient.Builder clientBuilder) {
         if(System.getProperty("https.proxyHost", "") != "") {
           System.out.println(System.getProperty("https.proxyHost"));
+          LOG.warn(System.getProperty("https.proxyHost") + ":" + System.getProperty("https.proxyPort"));
           Proxy proxy = new Proxy(
             Proxy.Type.HTTP,
             new InetSocketAddress(
@@ -53,6 +57,8 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
             )
           );
           clientBuilder.proxy(proxy);
+        } else {
+          LOG.warn("No proxy defined");
         }
 
         this.request = request;
