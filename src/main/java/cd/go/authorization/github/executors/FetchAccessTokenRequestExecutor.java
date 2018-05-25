@@ -28,6 +28,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import java.net.Proxy;
+import java.net.InetSocketAddress;
 
 import static cd.go.authorization.github.GitHubPlugin.LOG;
 import static java.text.MessageFormat.format;
@@ -37,12 +39,24 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
     private final OkHttpClient httpClient;
 
     public FetchAccessTokenRequestExecutor(FetchAccessTokenRequest request) {
-        this(request, new OkHttpClient());
+        this(request, new OkHttpClient.Builder());
     }
 
-    FetchAccessTokenRequestExecutor(FetchAccessTokenRequest request, OkHttpClient httpClient) {
+    FetchAccessTokenRequestExecutor(FetchAccessTokenRequest request, OkHttpClient.Builder clientBuilder) {
+        if(System.getProperty("https.proxyHost", "") != "") {
+          System.out.println(System.getProperty("https.proxyHost"));
+          Proxy proxy = new Proxy(
+            Proxy.Type.HTTP,
+            new InetSocketAddress(
+              System.getProperty("https.proxyHost"),
+              Integer.parseInt(System.getProperty("https.proxyPort"))
+            )
+          );
+          clientBuilder.proxy(proxy);
+        }
+
         this.request = request;
-        this.httpClient = httpClient;
+        this.httpClient = clientBuilder.build();
     }
 
     public GoPluginApiResponse execute() throws Exception {
