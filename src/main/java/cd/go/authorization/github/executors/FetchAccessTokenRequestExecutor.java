@@ -30,6 +30,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import java.net.Proxy;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 import static cd.go.authorization.github.GitHubPlugin.LOG;
 import static java.text.MessageFormat.format;
@@ -62,7 +63,11 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
         }
 
         this.request = request;
-        this.httpClient = clientBuilder.build();
+        this.httpClient = clientBuilder
+          .connectTimeout(30, TimeUnit.SECONDS)
+          .writeTimeout(30, TimeUnit.SECONDS)
+          .readTimeout(30, TimeUnit.SECONDS)
+          .build();
     }
 
     public GoPluginApiResponse execute() throws Exception {
