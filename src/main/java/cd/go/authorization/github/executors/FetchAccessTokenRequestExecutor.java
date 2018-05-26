@@ -78,6 +78,7 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
         final GitHubConfiguration gitHubConfiguration = authConfig.gitHubConfiguration();
 
         String fetchAccessTokenUrl = fetchAccessTokenUrl(gitHubConfiguration);
+        System.out.println("Token URL:" + fetchAccessTokenUrl)
         final Request fetchAccessTokenRequest = fetchAccessTokenRequest(fetchAccessTokenUrl);
 
         final Response response = httpClient.newCall(fetchAccessTokenRequest).execute();
