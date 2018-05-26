@@ -81,6 +81,9 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
         final Request fetchAccessTokenRequest = fetchAccessTokenRequest(fetchAccessTokenUrl);
 
         final Response response = httpClient.newCall(fetchAccessTokenRequest).execute();
+        LOG.info("HTTP Message: " + response.message());
+        LOG.info("HTTP Body: " + response.body());
+        LOG.info("Response" + response.toString());
         if (response.isSuccessful()) {
             LOG.info("[Get Access Token] Access token fetched successfully.");
             final TokenInfo tokenInfo = TokenInfo.fromJSON(response.body().string());
