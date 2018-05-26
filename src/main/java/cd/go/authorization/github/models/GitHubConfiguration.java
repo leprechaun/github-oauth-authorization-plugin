@@ -104,6 +104,10 @@ public class GitHubConfiguration implements Validatable {
         return gitHubEnterpriseUrl;
     }
 
+    public String hostUrl() {
+        return authenticateWith == AuthenticateWith.GITHUB ? apiUrl() : apiUrl().substring(0, apiUrl().indexOf("/api/v3"));
+    }
+
     public String apiUrl() {
         return authenticateWith == AuthenticateWith.GITHUB ? GITHUB_URL : gitHubEnterpriseUrl;
     }

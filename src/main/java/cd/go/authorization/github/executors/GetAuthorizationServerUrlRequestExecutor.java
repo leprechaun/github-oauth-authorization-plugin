@@ -46,7 +46,7 @@ public class GetAuthorizationServerUrlRequestExecutor implements RequestExecutor
         final AuthConfig authConfig = request.authConfigs().get(0);
         final GitHubConfiguration gitHubConfiguration = authConfig.gitHubConfiguration();
 
-        String authorizationServerUrl = HttpUrl.parse(gitHubConfiguration.apiUrl())
+        String authorizationServerUrl = HttpUrl.parse(gitHubConfiguration.hostUrl())
                 .newBuilder()
                 .addPathSegment("login")
                 .addPathSegment("oauth")

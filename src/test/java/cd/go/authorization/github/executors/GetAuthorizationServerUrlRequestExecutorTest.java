@@ -80,7 +80,7 @@ public class GetAuthorizationServerUrlRequestExecutorTest {
 
     @Test
     public void shouldReturnAuthorizationServerUrlWithTrailingSlash() throws Exception {
-        GitHubConfiguration gitHubConfiguration = new GitHubConfiguration("client-id", "client-secret", AuthenticateWith.GITHUB_ENTERPRISE, "http://enterprise.url/", "example-1");
+        GitHubConfiguration gitHubConfiguration = new GitHubConfiguration("client-id", "client-secret", AuthenticateWith.GITHUB_ENTERPRISE, "http://enterprise.url/api/v3/", "example-1");
 
         when(authConfig.gitHubConfiguration()).thenReturn(gitHubConfiguration);
         when(request.authConfigs()).thenReturn(Collections.singletonList(authConfig));
@@ -94,7 +94,7 @@ public class GetAuthorizationServerUrlRequestExecutorTest {
 
     @Test
     public void shouldReturnAuthorizationServerUrlForGitHubEnterprise() throws Exception {
-        GitHubConfiguration gitHubConfiguration = new GitHubConfiguration("client-id", "client-secret", AuthenticateWith.GITHUB_ENTERPRISE, "http://enterprise.url", "example-1");
+        GitHubConfiguration gitHubConfiguration = new GitHubConfiguration("client-id", "client-secret", AuthenticateWith.GITHUB_ENTERPRISE, "http://enterprise.url/api/v3", "example-1");
 
         when(authConfig.gitHubConfiguration()).thenReturn(gitHubConfiguration);
         when(request.authConfigs()).thenReturn(Collections.singletonList(authConfig));

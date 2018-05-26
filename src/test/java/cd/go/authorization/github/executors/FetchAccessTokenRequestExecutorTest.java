@@ -87,7 +87,7 @@ public class FetchAccessTokenRequestExecutorTest {
 
         when(fetchAccessTokenRequest.authConfigs()).thenReturn(Collections.singletonList(authConfig));
         when(fetchAccessTokenRequest.requestParameters()).thenReturn(Collections.singletonMap("code", "code-received-in-previous-step"));
-        when(gitHubConfiguration.apiUrl()).thenReturn(mockWebServer.url("/").toString());
+        when(gitHubConfiguration.hostUrl()).thenReturn(mockWebServer.url("/").toString());
 
         final GoPluginApiResponse response = executor.execute();
 
@@ -108,7 +108,7 @@ public class FetchAccessTokenRequestExecutorTest {
 
         when(fetchAccessTokenRequest.authConfigs()).thenReturn(Collections.singletonList(authConfig));
         when(fetchAccessTokenRequest.requestParameters()).thenReturn(Collections.singletonMap("code", "code-received-in-previous-step"));
-        when(gitHubConfiguration.apiUrl()).thenReturn(mockWebServer.url("/").toString());
+        when(gitHubConfiguration.hostUrl()).thenReturn(mockWebServer.url("/").toString());
 
         executor.execute();
     }
